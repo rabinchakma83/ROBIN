@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Signup</title></head>
+<body>
+    <h1>Registration Form</h1>
+    {% if error %}<p style="color:red">{{ error }}</p>{% endif %}
+    
+    <form action="{% url 'signup' %}" method="post">
+        {% csrf_token %}
+        <label for="username">username:</label>
+        <input type="text" name="username" id="username">
+        <br><br>
+        <label for="password">password:</label>
+        <input type="password" name="password" id="password">
+        <br><br>
+        <label for="confirm_pass">confirm password:</label>
+        <input type="password" name="confirm_pass" id="confirm_pass">
+        <br><br>
+        <input type="submit" value="sign up">
+    </form>
+    
+</body>
+</html>
