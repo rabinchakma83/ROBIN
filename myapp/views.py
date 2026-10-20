@@ -1,10 +1,12 @@
 
 from django.shortcuts import render,redirect
-
+from .forms import *
 from .models import student,CustomUser
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+
 @login_required
+
 
 # Create your views here.
 def home(request):
@@ -143,4 +145,54 @@ def update_password(request):
 
     return render(request, 'updatepassword.html', context)
 
+def studentAddForm(request):
+    if request.method =="POST":
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
 
+     form = StudentForm()
+    return render (request,'studentform.html',{'form': form })
+
+def studentUpdate(request , id):
+
+    students = student.objects.get(id=id)
+    if request.method == "POST":
+      form = StudentForm(request.POST,instance=students)
+      if form.is_valid():
+          form.save()
+          return redirect('home')
+    else:
+        form= StudentForm(instance= students)
+    return render(request,'studentform.html',{'form':form}) 
+   
+
+def register(request):
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)   
+        if form.is_valid():
+            password = form.cleaned_data.get('password1') 
+            user = form.save(commit=False)
+            user.set_password(password)
+            user.save()
+            return redirect('userlogin')
+    else:
+        form = RegistrationForm()               
+    return render(request, 'registrationform.html', {'form': form})
+
+def User_Login(request):
+    if request.method == "POST":
+            form = LoginForm(request, data = request.POST)   
+            if form.is_valid():
+                username = form.cleaned_data.get('username')
+                password = form.cleaned_data.get('password')
+
+                user = authenticate(username = username,password=password)
+                if user:
+                    login(request,user)
+                    return redirect('home')
+    else:
+            form = LoginForm()
+    return render(request,'loginform.html',{'form':form})   

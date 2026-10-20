@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head><title>Signup</title></head>
-<body>
+{% extends 'base.html' %}
+{% block conetent %}
     <h1>Registration Form</h1>
     {% if error %}<p style="color:red">{{ error }}</p>{% endif %}
     
@@ -19,5 +17,4 @@
         <input type="submit" value="sign up">
     </form>
     
-</body>
-</html>
+{% endblock %}

@@ -1,7 +1,7 @@
 
 from django.urls import path
 
-from myapp.views import addstudent, home, studentIdCall, updateStudent, studentDelete,signup,signin,user_logout,update_password
+from myapp.views import addstudent, home, studentIdCall, updateStudent, studentDelete,signup,signin,user_logout,update_password,studentAddForm,studentUpdate,register,User_Login
 
 urlpatterns = [
     
@@ -21,7 +21,16 @@ urlpatterns = [
 
     path('logout/',user_logout,name='logout'),
 
-    path('updatepassword/',update_password,name='updatepassword')
+    path('updatepassword/',update_password,name='updatepassword'),
+
+    path('studentform/',studentAddForm,name='studentform'),
+
+    path('studentUpdate/<int:id>',studentUpdate,name='studentUpdate'),
+
+    path('register/',register,name='register'),
+
+    path('userlogin/',User_Login,name='userlogin'),
+
     
     
 ]
